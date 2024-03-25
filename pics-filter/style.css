@@ -28,6 +28,8 @@ body {
   margin-top: 20px;
   height: 30px;
   width: 300px;
+  border-radius: 10px;
+  border: none;
 }
 
 .contenedor .contenedor-fotos {
@@ -38,9 +40,15 @@ body {
   flex-wrap: wrap;
 }
 
+.contenedor .contenedor-fotos .carta {
+  background-color: #1f1f1f;
+  border-radius: 10px;
+}
+
 .contenedor .contenedor-fotos .carta img {
   width: 200px;
   height: 200px;
+  border-radius: 10px;
 }
 
 .contenedor .contenedor-fotos .carta figcaption {
