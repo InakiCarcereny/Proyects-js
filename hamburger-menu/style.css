@@ -27,7 +27,7 @@ section {
   background-color: #111;
   opacity: 0; 
   z-index: 999;
-  transition: transform .3s;;
+  transition: transform .3s;
   transform: translate(-100%, 0);
 }
 

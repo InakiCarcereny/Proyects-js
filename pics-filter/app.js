@@ -16,3 +16,4 @@ const filtrador = () => {
 }
 
 filtrador(); // Llama a la función para activar el evento de filtrado
+ 
