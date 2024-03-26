@@ -51,6 +51,7 @@ body {
 
 .active {
   background-color: #8c73a6;
+  transition: .2s;
 }
 
 .contenedor .contenedor-aside aside nav ul li a {
