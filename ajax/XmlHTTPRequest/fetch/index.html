@@ -5,15 +5,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
+
 <body>
-  
+  <div class="contenedor">
+    <ol id="xhr"></ol>
+  </div>
 </body>
 </html>
 
 <style>
+  .contenedor {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
 
+  .contenedor ol {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
 </style>
 
 <script>
-  
+  const xhr = document.getElementById('xhr')
+  const fragment = document.createDocumentFragment()
+
+  fetch('https://jsonplaceholder.typicode.com/users')
+  .then((response) => response.ok ? response.json()
+    : Promise.reject(response)
+  )
+  .then(data => {
+    data.forEach(element => {
+      const li = document.createElement('li')
+      li.innerText = `${element.name}--${element.username}--${element.phone}`
+      fragment.appendChild(li)
+    })
+    xhr.appendChild(fragment)
+  })
+
+  .catch(error => {
+    let msg = error.statusText || 'Ocurrio un error'
+    xhr.innerText = `${error.status} -- ${msg}`
+  })
+
+  .finally(console.log('voy a aparecer siempre pase lo que pase'))
 </script>
