@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div class="contenedor">
+    <ol id="xhr"></ol>
+  </div>
+</body>
+</html>
+
+<style>
+  .contenedor {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+
+  .contenedor ol {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+</style>
+
+<script>
+  const ajax = new XMLHttpRequest()
+  const xhr = document.getElementById('xhr')
+  const fragment = document.createDocumentFragment()
+
+  ajax.addEventListener('readystatechange', e => {
+    //console.log(ajax)
+    //console.log(ajax.responseText)
+    if(ajax.status >= 200 && ajax.status < 300) {
+
+      let json = JSON.parse(ajax.responseText)
+      //console.log(json)
+      
+      json.forEach(element => {
+        const li = document.createElement('li')
+        li.innerHTML = `${element.name}--${element.username}--${element.email}--${element.phone}`
+        fragment.appendChild(li)
+        //console.log(fragment)
+      });
+      
+      xhr.appendChild(fragment)
+    } else {
+      let msg = ajax.statusText || 'Ocurrio un error en el servidor'
+      xhr.innerText = `Error ${ajax.status} -- ${msg}`
+    } 
+  })
+
+  ajax.open('GET', 'https://jsonplaceholder.typicode.com/users')
+
+  ajax.send()
+</script>
