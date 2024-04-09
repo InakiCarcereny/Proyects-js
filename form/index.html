@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Form</title>
+</head>
+
+<body>
+  <div class="contenedor">
+    <h1>Enter your info</h1>
+    <form action="" method="get">
+      <input type="email" placeholder="Put your email here" required name="email" pattern="^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9\-]+(\.[a-z0-9\-]+)*(\.[a-z]{2,15})$" title="No cumple con el estandar de correo">
+      <input type="password" minlength="8" placeholder="Put your password here" required name="password" title="No cumple con el estandar de contrasenia" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()-_+=])[a-zA-Z\d!@#$%^&*()-_+=]{8,}$">
+      <input type="text">
+      <input type="submit">
+    </form>
+  </div>
+    
+  <script src="app.js"></script>
+</body>
+</html>
