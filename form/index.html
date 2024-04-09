@@ -10,11 +10,10 @@
 <body>
   <div class="contenedor">
     <h1>Enter your info</h1>
-    <form action="" method="get">
+    <form action="" method="get" class="contact">
       <input type="email" placeholder="Put your email here" required name="email" pattern="^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9\-]+(\.[a-z0-9\-]+)*(\.[a-z]{2,15})$" title="No cumple con el estandar de correo">
-      <input type="password" minlength="8" placeholder="Put your password here" required name="password" title="No cumple con el estandar de contrasenia" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()-_+=])[a-zA-Z\d!@#$%^&*()-_+=]{8,}$">
-      <input type="text">
-      <input type="submit">
+      <input type="text" placeholder="Enter your name" name="text" required pattern="^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$" title="el nombre no es valido">
+      <input type="submit" class="send">
     </form>
   </div>
     

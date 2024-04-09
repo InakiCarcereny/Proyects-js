@@ -41,3 +41,32 @@ body {
 .contenedor form input[required]:valid {
   border: green solid 2px;
 }
+
+.validating {
+  background-color: red;
+  color: white;
+  margin: -1px;
+  width: 100%;
+  padding: 8px 0;
+}
+
+.validating.active {
+  display: block;
+  animation: msj 1s 1 normal 0s ease-out both;
+}
+
+.none {
+  display: none;
+}
+
+@keyframes msj {
+  0% {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  100% {
+    visibility: visible;
+    opacity: 1;
+  }
+}
