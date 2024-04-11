@@ -13,10 +13,22 @@
       "edad": 19
     },
     {
-      "id": "3",
-      "nombre": "licha",
-      "apellido": "rutch",
-      "edad": 19
+      "nombre": "pedro",
+      "apellido": "juan",
+      "edad": "19",
+      "id": "8ddf"
+    },
+    {
+      "id": "abc7",
+      "nombre": "genaro",
+      "apellido": "cerato",
+      "edad": "20"
+    },
+    {
+      "id": "dcd8",
+      "nombre": "stefano",
+      "apellido": "filippi",
+      "edad": "19"
     }
   ],
   "dioses": [

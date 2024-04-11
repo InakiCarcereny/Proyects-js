@@ -1,0 +1,202 @@
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CRUD API REST FETCH</title>
+  </head>
+
+  <body>
+    <h1>CRUD API REST FETCH</h1>
+    <section class="crud">
+      <article>
+        <h2 class="crud-title">Agregar Amigo</h2>
+        <form class="crud-form">
+          <input type="text" name="nombre" placeholder="nombre" required />
+          <br />
+          <input
+            type="text"
+            name="apellido"
+            placeholder="apellido"
+            required
+          />
+          <br />
+          <input type="text" name="edad" placeholder="edad" required>
+          <br>
+          <input type="submit" value="Enviar" />
+          <input type="hidden" name="id" />
+        </form>
+      </article>
+      <article>
+        <h2>Ver Amigos</h2>
+        <table class="crud-table">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Apellido</th>
+              <th>Edad</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </article>
+    </section>
+    <template id="crud-template">
+      <tr>
+        <td class="nombre"></td>
+        <td class="apellido"></td>
+        <td class="edad"></td>
+        <td>
+          <button class="edit">Editar</button>
+          <button class="delete">Eliminar</button>
+        </td>
+      </tr>
+    </template>      
+  </body>
+
+  <script> 
+    const  $table = document.querySelector(".crud-table")
+    const  $form = document.querySelector(".crud-form")
+    const  $title = document.querySelector(".crud-title")
+    const  $template = document.getElementById("crud-template").content
+    const  $fragment = document.createDocumentFragment();
+
+      const getAll = async () => {
+        try {
+          const response = await fetch("http://localhost:3000/amigos")
+          const json = await response.json();
+
+          if (!response.ok) throw { status: response.status, statusText: response.statusText };
+
+          //console.log(json);
+          json.forEach((el) => {
+            $template.querySelector(".nombre").textContent = el.nombre;
+            $template.querySelector(".apellido").textContent = el.apellido;
+            $template.querySelector(".edad").textContent = el.edad;
+            $template.querySelector(".edit").dataset.id = el.id;
+            $template.querySelector(".edit").dataset.nombre = el.nombre;
+            $template.querySelector(".edit").dataset.apellido =
+              el.apellido;
+            $template.querySelector(".edit").dataset.edad = el.edad;
+            $template.querySelector(".delete").dataset.id = el.id;
+
+            let $clone = document.importNode($template, true);
+            $fragment.appendChild($clone);
+          });
+
+          $table.querySelector("tbody").appendChild($fragment);
+        } catch (err) {
+          let message = err.statusText || "Ocurrió un error";
+          $table.insertAdjacentHTML(
+            "afterend",
+            `<p><b>Error ${err.status}: ${message}</b></p>`
+          );
+        }
+      };
+
+      document.addEventListener("DOMContentLoaded", getAll);
+
+      document.addEventListener("submit", async (e) => {
+        if (e.target === $form) {
+          e.preventDefault();
+
+          if (!e.target.id.value) {
+            //Create - POST
+            try {
+              let options = {
+                  method: "POST",
+                  headers: {
+                    "Content-type": "application/json; charset=utf-8",
+                  },
+                  body: JSON.stringify({
+                    nombre: e.target.nombre.value,
+                    apellido: e.target.apellido.value,
+                    edad: e.target.edad.value
+                  }),
+                },
+                res = await fetch("http://localhost:3000/amigos", options),
+                json = await res.json();
+
+              if (!res.ok)
+                throw { status: res.status, statusText: res.statusText };
+
+              location.reload();
+            } catch (err) {
+              let message = err.statusText || "Ocurrió un error";
+              $form.insertAdjacentHTML(
+                "afterend",
+                `<p><b>Error ${err.status}: ${message}</b></p>`
+              );
+            }
+          } else {
+            try {
+              let options = {
+                  method: "PUT",
+                  headers: {
+                    "Content-type": "application/json; charset=utf-8",
+                  },
+                  body: JSON.stringify({
+                    nombre: e.target.nombre.value,
+                    apellido: e.target.apellido.value,
+                    edad: e.target.edad.value
+                  }),
+                },
+                res = await fetch(`http://localhost:3000/amigos/${e.target.id.value}`, options),
+                json = await res.json();
+                
+                
+                if (!res.ok)
+                throw { status: res.status, statusText: res.statusText };
+              
+              location.reload();
+            } catch (err) {
+              let message = err.statusText || "Ocurrió un error";
+              $form.insertAdjacentHTML(
+                "afterend",
+                `<p><b>Error ${err.status}: ${message}</b></p>`
+              );
+            }
+          }
+        }
+      })
+
+      document.addEventListener('click', async (e) => {
+          if(e.target.matches('.edit')) {
+            $title.textContent = 'Editar amigo'
+            $form.nombre.value = e.target.dataset.nombre
+            $form.apellido.value = e.target.dataset.apellido
+            $form.edad.value = e.target.dataset.edad
+            $form.id.value = e.target.dataset.id
+          }
+          if (e.target.matches(".delete")) {
+          let isDelete = confirm(
+            `¿Estás seguro de eliminar el id ${e.target.dataset.id}?`
+          );
+
+          if (isDelete) {
+            //Delete - DELETE
+            try {
+              let options = {
+                  method: "DELETE",
+                  headers: {
+                    "Content-type": "application/json; charset=utf-8",
+                  },
+                },
+                res = await fetch(
+                  `http://localhost:3000/amigos/${e.target.dataset.id}`,
+                  options
+                ),
+                json = await res.json();
+
+              if (!res.ok)
+                throw { status: res.status, statusText: res.statusText };
+
+              location.reload();
+            } catch (err) {
+              let message = err.statusText || "Ocurrió un error";
+              alert(`Error ${err.status}: ${message}`);
+            }
+          }
+        }
+      })
+  </script>
