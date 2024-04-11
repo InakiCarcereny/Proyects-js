@@ -1,0 +1,42 @@
+{
+  "amigos": [
+    {
+      "id": "1",
+      "nombre": "luca",
+      "apellido": "kern",
+      "edad": 19
+    },
+    {
+      "id": "2",
+      "nombre": "tomas",
+      "apellido": "schena",
+      "edad": 19
+    },
+    {
+      "id": "3",
+      "nombre": "licha",
+      "apellido": "rutch",
+      "edad": 19
+    }
+  ],
+  "dioses": [
+    {
+      "id": "1",
+      "nombre": "thor",
+      "apellido": "hsdfjash",
+      "edad": 100
+    },
+    {
+      "id": "2",
+      "nombre": "odin",
+      "apellido": "gahslkdgah",
+      "edad": 1000
+    },
+    {
+      "id": "3",
+      "nombre": "deida",
+      "apellido": "cvnalksd",
+      "edad": 500
+    }
+  ]
+}
