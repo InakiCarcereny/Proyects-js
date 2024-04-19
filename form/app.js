@@ -27,6 +27,20 @@ const validation = () => {
       }
     }
   });
-};
 
+  document.addEventListener('submit', (e) => {
+    fetch('https://formsubmit.co/ajax/inakicarce@hotmail.com.ar', {
+      method: 'POST',
+      body: new FormData(e.target)
+    })
+    .then(res => res.ok ? res.json() : Promise.reject(res))
+    .then(json => {
+      console.log(json);
+      form.reset();
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  });
+}
 validation();
